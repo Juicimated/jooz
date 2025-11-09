@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "jooz",
+	"version": "${version}",
+	"name": "JoozLib",
+	"description": "TBA",
+	"authors": [
+		"Juicimated"
+	],
+	"contact": {
+		"homepage": "https://juici.dev/",
+		"sources": "https://github.com/Juicimated/jooz"
+	},
+	"license": "GPLv3",
+	"icon": "assets/jooz/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.juici.jooz.JoozLib"
+		],
+        "client": [
+            "dev.juici.jooz.JoozLibClient"
+        ]
+	},
+	"mixins": [
+		"jooz.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
