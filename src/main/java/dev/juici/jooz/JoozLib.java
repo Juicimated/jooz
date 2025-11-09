@@ -1,8 +1,11 @@
 package dev.juici.jooz;
 
+import dev.juici.jooz.command.FactorCommand;
+import dev.juici.jooz.command.FactorGroupCommand;
 import dev.juici.jooz.factor.FactorRegistry;
 import dev.juici.jooz.factor.PassiveFactor;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,5 +20,8 @@ public class JoozLib implements ModInitializer {
 
         FactorRegistry.register(new PassiveFactor(Identifier.of(MOD_ID, "test"),
                 "factor.jooz.test", Identifier.of(MOD_ID, "textures/factor/test.png")));
+
+        CommandRegistrationCallback.EVENT.register(FactorCommand::register);
+        CommandRegistrationCallback.EVENT.register(FactorGroupCommand::register);
 	}
 }
