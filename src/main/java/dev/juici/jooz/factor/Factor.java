@@ -2,7 +2,7 @@ package dev.juici.jooz.factor;
 
 import net.minecraft.util.Identifier;
 
-public class Factor {
+public abstract class Factor {
     private final Identifier id;
     private final String key;
     private final Identifier icon;
