@@ -20,6 +20,9 @@
 		],
         "client": [
             "dev.juici.jooz.JoozLibClient"
+        ],
+        "cardinal-components": [
+            "dev.juici.jooz.JoozLibComponents"
         ]
 	},
 	"mixins": [
@@ -33,5 +36,10 @@
 	},
 	"suggests": {
 		"another-mod": "*"
-	}
+	},
+    "custom": {
+        "cardinal-components": [
+            "jooz:factors"
+      ]
+    }
 }
