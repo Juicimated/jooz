@@ -3,6 +3,9 @@ package dev.juici.jooz.component;
 import dev.juici.jooz.JoozLib;
 import dev.juici.jooz.factor.FactorGroup;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
+import net.minecraft.nbt.NbtList;
+import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
@@ -47,12 +50,54 @@ public class FactorComponentImpl implements FactorComponent {
     }
 
     @Override
-    public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public void readFromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
+        groups.clear();
 
+        NbtList groupList = nbt.getList("groups", NbtElement.COMPOUND_TYPE);
+        for (int i = 0; i < groupList.size(); i++) {
+            NbtCompound groupTag = groupList.getCompound(i);
+            Identifier gId = Identifier.of(groupTag.getString("group_id"));
+
+            FactorGroup group = new FactorGroup(gId);
+
+            NbtList factors = groupTag.getList("factors", NbtElement.STRING_TYPE);
+            for (int j = 0; j < factors.size(); j++) {
+                Identifier fId = Identifier.of(factors.getString(j));
+                group.getFactorIds().add(fId);
+            }
+
+            groups.add(group);
+        }
+
+        if (nbt.contains("active_group")) {
+            Identifier activeId = Identifier.of(nbt.getString("active_group"));
+            activeGroup = groups.stream()
+                    .filter(g -> g.getId().equals(activeId))
+                    .findFirst()
+                    .orElse(null);
+        }
     }
 
     @Override
-    public void writeToNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {
+    public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
+        if (activeGroup != null) {
+            nbt.putString("active_group", activeGroup.getId().toString());
+        }
 
+        NbtList groupList = new NbtList();
+        for (FactorGroup group : groups) {
+            NbtCompound groupTag = new NbtCompound();
+            groupTag.putString("group_id", group.getId().toString());
+
+            NbtList factorList = new NbtList();
+            for (Identifier fId : group.getFactorIds()) {
+                factorList.add(NbtString.of(fId.toString()));
+            }
+
+            groupTag.put("factors", factorList);
+            groupList.add(groupTag);
+        }
+
+        nbt.put("groups", groupList);
     }
 }
