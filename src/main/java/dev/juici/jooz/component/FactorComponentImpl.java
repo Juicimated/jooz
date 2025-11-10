@@ -7,6 +7,7 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
 import net.minecraft.nbt.NbtString;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.HashSet;
@@ -17,7 +18,8 @@ public class FactorComponentImpl implements FactorComponent {
     private FactorGroup activeGroup;
 
     public FactorComponentImpl() {
-        FactorGroup defaultGroup = new FactorGroup(Identifier.of(JoozLib.MOD_ID, "default"));
+        FactorGroup defaultGroup = new FactorGroup(Identifier.of(JoozLib.MOD_ID, "default"),
+                Text.translatable("factorgroup.jooz.default"));
         groups.add(defaultGroup);
         activeGroup = defaultGroup;
     }
@@ -57,8 +59,9 @@ public class FactorComponentImpl implements FactorComponent {
         for (int i = 0; i < groupList.size(); i++) {
             NbtCompound groupTag = groupList.getCompound(i);
             Identifier gId = Identifier.of(groupTag.getString("group_id"));
+            Text gKey = Text.of(groupTag.getString("group_key"));
 
-            FactorGroup group = new FactorGroup(gId);
+            FactorGroup group = new FactorGroup(gId, gKey);
 
             NbtList factors = groupTag.getList("factors", NbtElement.STRING_TYPE);
             for (int j = 0; j < factors.size(); j++) {
@@ -88,6 +91,7 @@ public class FactorComponentImpl implements FactorComponent {
         for (FactorGroup group : groups) {
             NbtCompound groupTag = new NbtCompound();
             groupTag.putString("group_id", group.getId().toString());
+            groupTag.putString("group_key", group.getKey().toString());
 
             NbtList factorList = new NbtList();
             for (Identifier fId : group.getFactorIds()) {

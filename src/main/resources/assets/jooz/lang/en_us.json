@@ -1,3 +1,9 @@
 {
-  "factor.jooz.test": "Test Factor"
+  "factor.jooz.test": "Passive Factor",
+  "factor.jooz.test2": "Active Factor",
+  "factor.jooz.test3": "Cosmetic Factor",
+
+  "factorgroup.jooz.default": "Default",
+  "factorgroup.jooz.test_group": "Test Factor Group",
+  "factorgroup.jooz.test_group2": "Test Factor Group 2"
 }

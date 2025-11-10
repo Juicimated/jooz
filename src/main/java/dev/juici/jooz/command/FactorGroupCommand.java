@@ -1,6 +1,7 @@
 package dev.juici.jooz.command;
 
 import com.mojang.brigadier.CommandDispatcher;
+import dev.juici.jooz.JoozLibComponents;
 import dev.juici.jooz.component.FactorComponents;
 import dev.juici.jooz.factor.FactorGroup;
 import dev.juici.jooz.factor.FactorRegistry;
@@ -37,6 +38,7 @@ public class FactorGroupCommand {
 
                                             var comp = FactorComponents.get(player);
                                             comp.addGroup(group);
+                                            JoozLibComponents.FACTORS.sync(player);
 
                                             ctx.getSource().sendFeedback(() ->
                                                     Text.literal("Factor Group " + groupId + " added to " + player.getNameForScoreboard()), false);
@@ -64,6 +66,7 @@ public class FactorGroupCommand {
 
                                             var comp = FactorComponents.get(player);
                                             comp.removeGroup(group);
+                                            JoozLibComponents.FACTORS.sync(player);
 
                                             ctx.getSource().sendFeedback(() ->
                                                     Text.literal("Factor Group " + groupId + " removed from " + player.getNameForScoreboard()), false);
@@ -96,6 +99,7 @@ public class FactorGroupCommand {
                                             }
 
                                             comp.setActiveGroup(group);
+                                            JoozLibComponents.FACTORS.sync(player);
 
                                             ctx.getSource().sendFeedback(() ->
                                                     Text.literal("Switched Active Group to: " + groupId), false);

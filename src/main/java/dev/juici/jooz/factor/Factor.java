@@ -1,14 +1,15 @@
 package dev.juici.jooz.factor;
 
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public abstract class Factor {
     private final Identifier id;
-    private final String key;
+    private final Text key;
     private final Identifier icon;
     private final FactorType type;
 
-    public Factor(Identifier id, String key, Identifier icon, FactorType type) {
+    public Factor(Identifier id, Text key, Identifier icon, FactorType type) {
         this.id = id;
         this.key = key;
         this.icon = icon;
@@ -19,7 +20,7 @@ public abstract class Factor {
         return id;
     }
 
-    public String getKey() {
+    public Text getKey() {
         return key;
     }
 
