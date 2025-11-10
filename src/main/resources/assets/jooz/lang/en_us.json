@@ -5,5 +5,13 @@
 
   "factorgroup.jooz.default": "Default",
   "factorgroup.jooz.test_group": "Test Factor Group",
-  "factorgroup.jooz.test_group2": "Test Factor Group 2"
+  "factorgroup.jooz.test_group2": "Test Factor Group 2",
+
+  "category.jooz": "JoozLib",
+  "key.jooz.active1": "Active Factor 1",
+  "key.jooz.active2": "Active Factor 2",
+  "key.jooz.active3": "Active Factor 3",
+  "key.jooz.active4": "Active Factor 4",
+  "key.jooz.active5": "Active Factor 5",
+  "key.jooz.switch_group": "Switch Current Group"
 }

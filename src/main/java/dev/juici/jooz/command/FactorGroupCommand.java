@@ -98,11 +98,11 @@ public class FactorGroupCommand {
                                                 return 0;
                                             }
 
-                                            comp.setActiveGroup(group);
+                                            comp.setCurrentGroup(group);
                                             JoozLibComponents.FACTORS.sync(player);
 
                                             ctx.getSource().sendFeedback(() ->
-                                                    Text.literal("Switched Active Group to: " + groupId), false);
+                                                    Text.literal("Switched Current Group to: " + groupId), false);
                                             return 1;
                                         })
                                 ))

@@ -15,13 +15,13 @@ import java.util.Set;
 
 public class FactorComponentImpl implements FactorComponent {
     private final Set<FactorGroup> groups = new HashSet<>();
-    private FactorGroup activeGroup;
+    private FactorGroup currentGroup;
 
     public FactorComponentImpl() {
         FactorGroup defaultGroup = new FactorGroup(Identifier.of(JoozLib.MOD_ID, "default"),
                 Text.translatable("factorgroup.jooz.default"));
         groups.add(defaultGroup);
-        activeGroup = defaultGroup;
+        currentGroup = defaultGroup;
     }
 
     @Override
@@ -32,23 +32,23 @@ public class FactorComponentImpl implements FactorComponent {
     @Override
     public void addGroup(FactorGroup group) {
         groups.add(group);
-        if (activeGroup == null) activeGroup = group;
+        if (currentGroup == null) currentGroup = group;
     }
 
     @Override
     public void removeGroup(FactorGroup group) {
         groups.remove(group);
-        if (activeGroup == group) activeGroup = groups.stream().findFirst().orElse(null);
+        if (currentGroup == group) currentGroup = groups.stream().findFirst().orElse(null);
     }
 
     @Override
-    public FactorGroup getActiveGroup() {
-        return activeGroup;
+    public FactorGroup getCurrentGroup() {
+        return currentGroup;
     }
 
     @Override
-    public void setActiveGroup(FactorGroup group) {
-        this.activeGroup = group;
+    public void setCurrentGroup(FactorGroup group) {
+        this.currentGroup = group;
     }
 
     @Override
@@ -72,10 +72,10 @@ public class FactorComponentImpl implements FactorComponent {
             groups.add(group);
         }
 
-        if (nbt.contains("active_group")) {
-            Identifier activeId = Identifier.of(nbt.getString("active_group"));
-            activeGroup = groups.stream()
-                    .filter(g -> g.getId().equals(activeId))
+        if (nbt.contains("current_group")) {
+            Identifier currentId = Identifier.of(nbt.getString("current_group"));
+            currentGroup = groups.stream()
+                    .filter(g -> g.getId().equals(currentId))
                     .findFirst()
                     .orElse(null);
         }
@@ -83,8 +83,8 @@ public class FactorComponentImpl implements FactorComponent {
 
     @Override
     public void writeToNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup wrapperLookup) {
-        if (activeGroup != null) {
-            nbt.putString("active_group", activeGroup.getId().toString());
+        if (currentGroup != null) {
+            nbt.putString("current_group", currentGroup.getId().toString());
         }
 
         NbtList groupList = new NbtList();

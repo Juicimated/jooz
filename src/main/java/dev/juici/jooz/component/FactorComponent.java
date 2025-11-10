@@ -10,6 +10,6 @@ public interface FactorComponent extends ComponentV3, AutoSyncedComponent {
     void addGroup(FactorGroup group);
     void removeGroup(FactorGroup group);
 
-    FactorGroup getActiveGroup();
-    void setActiveGroup(FactorGroup group);
+    FactorGroup getCurrentGroup();
+    void setCurrentGroup(FactorGroup group);
 }

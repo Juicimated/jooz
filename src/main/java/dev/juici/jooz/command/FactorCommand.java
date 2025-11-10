@@ -37,7 +37,7 @@ public class FactorCommand {
                                             }
 
                                             var comp = FactorComponents.get(player);
-                                            comp.getActiveGroup().addFactor(factor);
+                                            comp.getCurrentGroup().addFactor(factor);
                                             JoozLibComponents.FACTORS.sync(player);
 
                                             ctx.getSource().sendFeedback(() ->
@@ -65,7 +65,7 @@ public class FactorCommand {
                                             }
 
                                             var comp = FactorComponents.get(player);
-                                            comp.getActiveGroup().removeFactor(factor);
+                                            comp.getCurrentGroup().removeFactor(factor);
                                             JoozLibComponents.FACTORS.sync(player);
 
                                             ctx.getSource().sendFeedback(() ->
@@ -80,10 +80,10 @@ public class FactorCommand {
                                     ServerPlayerEntity player = EntityArgumentType.getPlayer(ctx, "player");
 
                                     var comp = FactorComponents.get(player);
-                                    var active = comp.getActiveGroup();
+                                    var active = comp.getCurrentGroup();
 
                                     ctx.getSource().sendFeedback(() ->
-                                            Text.literal("Active Group: " + active.getId() + "\n" +
+                                            Text.literal("Current Group: " + active.getId() + "\n" +
                                                     "Factors:\n" +
                                                     String.join("\n", active.getFactorIds().stream().map(Identifier::toString).toList())),
                                             false);
